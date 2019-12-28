@@ -22,15 +22,12 @@ enum planck_layers {
   _QWERTY,
   _LOWER,
   _RAISE,
-  _PLOVER,
   _ADJUST
 };
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
-  PLOVER,
   BACKLIT,
-  EXT_PLV
 };
 
 #define LOWER MO(_LOWER)
@@ -145,34 +142,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef KEYBOARD_planck_rev5
           writePinHigh(E6);
         #endif
-      }
-      return false;
-      break;
-    case PLOVER:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          stop_all_notes();
-          PLAY_SONG(plover_song);
-        #endif
-        layer_off(_RAISE);
-        layer_off(_LOWER);
-        layer_off(_ADJUST);
-        layer_on(_PLOVER);
-        if (!eeconfig_is_enabled()) {
-            eeconfig_init();
-        }
-        keymap_config.raw = eeconfig_read_keymap();
-        keymap_config.nkro = 1;
-        eeconfig_update_keymap(keymap_config.raw);
-      }
-      return false;
-      break;
-    case EXT_PLV:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(plover_gb_song);
-        #endif
-        layer_off(_PLOVER);
       }
       return false;
       break;
