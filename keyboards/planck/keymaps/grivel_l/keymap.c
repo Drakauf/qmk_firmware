@@ -27,7 +27,11 @@ enum planck_layers {
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
-  BACKLIT,
+  BACKLIT
+};
+
+enum custom_keycodes {
+  TMUX_PREFIX
 };
 
 #define LOWER MO(_LOWER)
@@ -84,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT_planck_grid(
     KC_GRV,  KC_BTN3,    KC_7,    KC_8,    KC_9, KC_A,    KC_B,    KC_EXCLAIM,    KC_AT,    KC_LPRN,    KC_RPRN, KC_EQUAL,
-    KC_DEL,  KC_F1,   KC_4,   KC_5,   KC_6,   KC_C,   KC_D,   KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC, KC_CIRC,
+    KC_DEL,  TMUX_PREFIX,   KC_4,   KC_5,   KC_6,   KC_C,   KC_D,   KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC, KC_CIRC,
     KC_LSFT, KC_X,   KC_1,   KC_2,   KC_3,  KC_E,  KC_F,  KC_MINUS, KC_ASTR, KC_AMPR, KC_PERC, KC_BSLS,
     KC_LCTL, _______, KC_LALT, KC_0, KC_LGUI, KC_SPC, _______, _______, _______, _______, _______, _______
 ),
@@ -144,6 +148,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #endif
       }
       return false;
+      break;
+    case TMUX_PREFIX:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTL("a"));
+      }
       break;
   }
   return true;
