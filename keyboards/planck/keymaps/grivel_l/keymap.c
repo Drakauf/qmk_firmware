@@ -282,6 +282,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
   switch (keycode) {
     case LALT_T(KC_V):
     case LSFT_T(KC_A):
+    case RSFT_T(KC_SCLN):
       return TAPPING_TERM + 30;
     default:
       return TAPPING_TERM;
