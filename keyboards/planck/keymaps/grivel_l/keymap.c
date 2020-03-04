@@ -143,6 +143,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  static uint16_t keyTimer;
+
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
@@ -170,7 +172,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case TMUX_PREFIX:
       if (record->event.pressed) {
-        SEND_STRING(SS_LCTL("a"));
+        keyTimer = timer_read();
+        SEND_STRING(SS_DOWN(X_LSFT));
+      } else {
+        SEND_STRING(SS_UP(X_LSFT));
+        if (timer_elapsed(keyTimer) < TAPPING_TERM + 30) {
+          SEND_STRING(SS_LCTL("a"));
+        }
       }
       break;
   }
@@ -280,10 +288,10 @@ bool music_mask_user(uint16_t keycode) {
 
 uint16_t get_tapping_term(uint16_t keycode) {
   switch (keycode) {
-    case LALT_T(KC_V):
-    case LSFT_T(KC_A):
-    case RSFT_T(KC_SCLN):
-      return TAPPING_TERM + 30;
+    case LCTL_T(KC_X):
+    case LCTL_T(KC_Z):
+    case LCTL_T(KC_BRIU):
+      return TAPPING_TERM - 30;
     default:
       return TAPPING_TERM;
   }
