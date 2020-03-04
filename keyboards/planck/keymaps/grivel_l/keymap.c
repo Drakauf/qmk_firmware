@@ -176,7 +176,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(SS_DOWN(X_LSFT));
       } else {
         SEND_STRING(SS_UP(X_LSFT));
-        if (timer_elapsed(keyTimer) < TAPPING_TERM + 30) {
+        if (timer_elapsed(keyTimer) < TAPPING_TERM + 100) {
           SEND_STRING(SS_LCTL("a"));
         }
       }
