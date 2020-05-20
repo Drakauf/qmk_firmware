@@ -1,10 +1,5 @@
 #include QMK_KEYBOARD_H
 
-
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
 #define _QWERTY 0
 #define _LOWER 1
 #define _RAISE 2
@@ -17,10 +12,6 @@ enum custom_keycodes {
   ADJUST,
   TMUX_PREFIX
 };
-
-// Defines for task manager and such
-#define CALTDEL LCTL(LALT(KC_DEL))
-#define TSKMGR LCTL(LSFT(KC_ESC))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -165,11 +156,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(SS_DOWN(X_LSFT));
       } else {
         SEND_STRING(SS_UP(X_LSFT));
-        if (timer_elapsed(keyTimer) < TAPPING_TERM + 100) {
+        if (keyTimer != 0 && timer_elapsed(keyTimer) < TAPPING_TERM) {
           SEND_STRING(SS_LCTL("a"));
         }
       }
       break;
+    default:
+      if (keyTimer != 0)
+        keyTimer = 0;
   }
   return true;
 }
