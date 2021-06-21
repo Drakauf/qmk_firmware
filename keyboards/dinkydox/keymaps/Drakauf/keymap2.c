@@ -63,9 +63,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Raise
  *
  * ,-----------------------------------------.           ,-----------------------------------------.
- * |   `  |CTL_B |      |  7   |  8   |  9   |           |   !  |  @   |  (   |  )   |  =   | Bksp |
+ * |   `  | BTN3 |      |  7   |  8   |  9   |           |   !  |  @   |  (   |  )   |  =   | Bksp |
  * |------+------+------+------+------+------|           |------+------+------+------+------+------|
- * |  Esc |Shift |      |  4   |  5   |  6   |           |   #  |  $   |  [   |  ]   |  ^   |Shift |
+ * |  Esc |CTL_B |      |  4   |  5   |  6   |           |   #  |  $   |  [   |  ]   |  ^   |      |
+ * |      |Shft()|      |      |      |      |           |      |      |      |      |      |      |
  * |------+------+------+------+------+------|           |------+------+------+------+------+------|
  * | Alt  | CTRL |      |  1   |  2   |  3   |           |   -  |  *   |  &   |  %   |  \   | GUI  |
  * |      |      |      |      |      |      |           |      |      |      |      |CTRL()|      |
@@ -77,8 +78,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                    `------'           `------'
  */
 [_RAISE] = LAYOUT( \
-    KC_GRV,     LCTL(KC_B),     _______,    KC_7,    KC_8,  KC_9,       KC_EXCLAIM, KC_AT,      KC_LPRN,    KC_RPRN,    KC_EQUAL,           KC_BSPC,
-    KC_ESC,     KC_LSFT,        _______,    KC_4,    KC_5,  KC_6,       KC_HASH,    KC_DLR,     KC_LBRC,    KC_RBRC,    KC_CIRC,            KC_RSFT,
+    KC_GRV,     KC_BTN3,        _______,    KC_7,    KC_8,  KC_9,       KC_EXCLAIM, KC_AT,      KC_LPRN,    KC_RPRN,            KC_EQUAL,           KC_BSPC,
+    KC_ESC,     LSFT_T(LCTL(KC_B)),     _______,    KC_4,    KC_5,  KC_6,       KC_HASH,    KC_DLR,     KC_LBRC,    KC_RBRC,            KC_CIRC,    _______,
     KC_LOPT,    KC_LCTL,        KC_LOPT,    KC_1,    KC_2,  KC_3,       KC_MINUS,   KC_ASTR,    KC_AMPR,    KC_PERC,    RCTL_T(KC_BSLS),    KC_RGUI,
                                 KC_LGUI,    KC_0,   KC_SPC,             _______, _______,    _______
 )
