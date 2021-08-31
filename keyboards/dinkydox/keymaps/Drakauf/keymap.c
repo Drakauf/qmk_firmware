@@ -3,13 +3,14 @@
 #define _QWERTY 0
 #define _LOWER 1
 #define _RAISE 2
-#define _COLEMAK 3
+#define _STREAM 3
 #define _ADJUST 16
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
-  RAISE
+  RAISE,
+  STREAM
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -48,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |Shft()|CTRL()|BRI_U |BRI_D |      |      |           | Mute |Vol D |Vol U |GUI() |CTRL()|Shft()|
  * `-----------------------------------------'           `-----------------------------------------'
  *                      ,--------------------.           ,------,-------------.
- *                      |      |      |      |           |      |      |  Alt |
+ *                      |      |      |STREAM|           |      |      |  Alt |
  *                      `-------------|      |           |      |------+------.
  *                                    |      |           |      |
  *                                    `------'           `------'
@@ -57,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F1,              KC_F2,      KC_F3,      KC_F4,  KC_F5,      KC_F6,                  KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,
     KC_PSCREEN,         KC_LEFT,   KC_DOWN,    KC_UP,  KC_RIGHT,    _______,                KC_DEL,     KC_HOME,    KC_END,     KC_PGUP,    KC_PGDOWN,  _______,
     KC_LSFT,    KC_LCTL, KC_BRID, KC_BRIU, _______, _______,               KC_MUTE, KC_VOLD, KC_VOLU,   KC_RGUI, KC_RCTL,   KC_RSFT,
-                                                    _______, _______, _______,              _______, _______, KC_ROPT
+                                                    _______, _______, DF(_STREAM),              _______, _______, KC_ROPT
 ),
 
 /* Raise
@@ -81,6 +82,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,     KC_LSFT,        _______,    KC_4,    KC_5,  KC_6,       KC_HASH,    KC_DLR,     KC_LBRC,    KC_RBRC,    KC_CIRC,            KC_RSFT,
     KC_LOPT,    KC_LCTL,        KC_LOPT,    KC_1,    KC_2,  KC_3,       KC_MINUS,   KC_ASTR,    KC_AMPR,    KC_PERC,    RCTL_T(KC_BSLS),    KC_RGUI,
                                 KC_LGUI,    KC_0,   KC_SPC,             _______, _______,    _______
+),
+
+/* StreamDeck
+ *
+ * ,-----------------------------------------.           ,-----------------------------------------.
+ * |QWERTY|      |      |    A |    B |    C |           |    J |    K |    L |      |      |      |
+ * |------+------+------+------+------+------|           |------+------+------+------+------+------|
+ * |      |      |      |    D |    E |    F |           |    N |    O |    P |      |      |      |
+ * |------+------+------+------+------+------|           |------+------+------+------+------+------|
+ * |      |      |      |    G |    H |    I |           |    Q |    R |    S |      |      |      |
+ * `-----------------------------------------'           `-----------------------------------------'
+ *                      ,--------------------.           ,------,-------------.
+ *                      |RSpace|      |Space |           |   M  |      |    X |
+ *                      `-------------|      |           |      |------+------.
+ *                                    |      |           |      |
+ *                                    `------'           `------'
+ */
+[_STREAM] = LAYOUT( \
+    DF(_QWERTY),    _______,    _______,    A(KC_A),    A(KC_B),    A(KC_C),        A(KC_J),    A(KC_K),    A(KC_L),    _______,    _______,    _______,
+    _______,    _______,    _______,    A(KC_D),    A(KC_E),    A(KC_F),        A(KC_N),    A(KC_O),    A(KC_P),    _______,    _______,    _______,
+    _______,    _______,    _______,    A(KC_G),    A(KC_H),    A(KC_I),        A(KC_Q),    A(KC_R),    A(KC_S),    _______,    _______,    _______,
+                                    C(A(KC_SPC)),    _______,   A(KC_SPC),                 A(KC_M), _______,     A(KC_X)
 )
 };
 
